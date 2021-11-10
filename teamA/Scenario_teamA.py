@@ -16,7 +16,7 @@ def Dialog4(self):
 
     label_freq = QLabel('사용빈도(N)* :', self.dialog4)
     label_freq.move(50, 80)
-    label_freq.setStyleSheet('color: white;')
+    label_freq.setStyleSheet('color: red;')
     self.D4_N = QLineEdit(self.dialog4)
     self.D4_N.setStyleSheet('background-color: white;')
     self.D4_N.move(150, 80)
@@ -87,7 +87,7 @@ def Dialog13(self):
 
     labelContinuous = QLabel('연속된 자릿수* : ', self.dialog13)
     labelContinuous.move(40, 80)
-    labelContinuous.setStyleSheet("color: white;")
+    labelContinuous.setStyleSheet("color: red;")
     self.D13_continuous = QLineEdit(self.dialog13)
     self.D13_continuous.setStyleSheet("background-color: white;")
     self.D13_continuous.move(170, 80)
