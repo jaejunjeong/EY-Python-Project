@@ -64,7 +64,7 @@ def Dialog5(self):
     self.D5_term_end.setInputMask('0000-00-00;*')
     self.D5_term_end.setStyleSheet('background-color: white;')
     self.D5_term_end.move(150, 110)
-
+ 
     self.dialog5.setGeometry(300, 300, 350, 300)
 
     self.dialog5.setWindowTitle('Scenario5')
