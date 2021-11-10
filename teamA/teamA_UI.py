@@ -30,7 +30,7 @@ class DataFrameModel(QAbstractTableModel):
         self._dataframe = dataframe.copy()
         self.endResetModel()
 
-    def dataFrame(self):
+    def dataFrame(self): 
         return self._dataframe
 
     dataFrame = pyqtProperty(pd.DataFrame, fget=dataFrame, fset=setDataFrame)
