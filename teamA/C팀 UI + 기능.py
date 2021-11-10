@@ -86,7 +86,7 @@ class MyApp(QWidget):
 
         grid = QGridLayout()
 
-        grid.addWidget(self.createFirstExclusiveGroup(), 0, 0)
+        grid.addWidget(self.createFirstExclusiveGroup(), 0, 0) 
         grid.addWidget(self.tableview(), 1, 0)
         grid.addWidget(self.createThirdExclusiveGroup(), 2, 0)
 
