@@ -79,6 +79,7 @@ def Dialog13(self):
     self.btn2 = QPushButton('Data Extract', self.dialog13)
     self.btn2.move(70, 200)
     self.btn2.setStyleSheet('color:black;background-color:#FFE602')
+    self.btn2.clicked.connect(self.extButtonClicked13)
 
     self.btnDialog = QPushButton('Close', self.dialog13)
     self.btnDialog.move(180, 200)
@@ -123,7 +124,7 @@ def extButtonClicked4(self):
     temp_TE = self.D4_TE.text()
 
     if temp_N == '':
-        self.alterbox_open()
+        self.alertbox_open()
 
     else:
         db = 'master'
@@ -159,7 +160,7 @@ def extButtonClicked5(self):
     temp_end = self.D5_term_end.text()
 
     if temp_start == '':
-        self.alterbox_open()
+        self.alertbox_open()
 
     else:
         db = 'master'
@@ -196,7 +197,7 @@ def extButtonClicked13(self):
     temp_cost_13 = self.D13_cost.text()
 
     if temp_continuous == '' or temp_account_13 == '' or temp_cost_13 == '':
-        self.alterbox_open()
+        self.alertbox_open()
 
     else:
         db = 'master'
