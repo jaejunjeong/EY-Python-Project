@@ -72,7 +72,7 @@ class DataFrameModel(QAbstractTableModel):
 
 class MyApp(QWidget):
 
-    def __init__(self):
+    def __init__(self): 
         super().__init__()
         self.init_UI()
         ##Initialize Variables
