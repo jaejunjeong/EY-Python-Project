@@ -7,7 +7,7 @@ import pyodbc
 import pandas as pd
 
 
-class DataFrameModel(QAbstractTableModel):
+class DataFrameModel(QAbstractTableModel): 
     DtypeRole = Qt.UserRole + 1000
     ValueRole = Qt.UserRole + 1001
 
