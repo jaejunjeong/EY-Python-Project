@@ -200,7 +200,7 @@ def extButtonClicked5(self):
 
 def extButtonClicked13(self):
     passwords = ''
-    users = 'guset'
+    users = 'guest'
     server = ids
     password = passwords
 
