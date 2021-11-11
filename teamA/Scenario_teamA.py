@@ -1,17 +1,21 @@
 ### Dialog
 def Dialog4(self):
     self.dialog4 = QDialog()
-    self.dialog4.setStyleSheet('background-color: #808080')
+    self.dialog4.setStyleSheet('background-color: #2E2E38')
     self.dialog4.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
 
-    self.btn2 = QPushButton('Data Extract', self.dialog4)
+    self.btn2 = QPushButton('Extract Data', self.dialog4)
     self.btn2.move(70, 200)
-    self.btn2.setStyleSheet('color:black;background-color:#FFE602')
+    self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png')
     self.btn2.clicked.connect(self.extButtonClicked4)
+
+    font9 = self.btn2.font()
+    font9.setBold(True)
+    self.btn2.setFont(font9)
 
     self.btnDialog = QPushButton('Close', self.dialog4)
     self.btnDialog.move(180, 200)
-    self.btnDialog.setStyleSheet('color:black;background-color:#FFE602')
+    self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png')
     self.btnDialog.clicked.connect(self.dialog_close4)
 
     label_freq = QLabel('사용빈도(N)* :', self.dialog4)
@@ -36,17 +40,21 @@ def Dialog4(self):
 
 def Dialog5(self):
     self.dialog5 = QDialog()
-    self.dialog5.setStyleSheet('background-color: #808080')
+    self.dialog5.setStyleSheet('background-color: #2E2E38')
     self.dialog5.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
 
     self.btn2 = QPushButton('Data Extract', self.dialog5)
     self.btn2.move(70, 200)
-    self.btn2.setStyleSheet('color:black;background-color:#FFE602')
+    self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png')
     self.btn2.clicked.connect(self.extButtonClicked5)
+
+    font9 = self.btn2.font()
+    font9.setBold(True)
+    self.btn2.setFont(font9)
 
     self.btnDialog = QPushButton('Close', self.dialog5)
     self.btnDialog.move(180, 200)
-    self.btnDialog.setStyleSheet('color:black;background-color:#FFE602')
+    self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png')
     self.btnDialog.clicked.connect(self.dialog_close5)
 
     label_term_start = QLabel('시작일 :', self.dialog5)
@@ -73,17 +81,21 @@ def Dialog5(self):
 
 def Dialog13(self):
     self.dialog13 = QDialog()
-    self.dialog13.setStyleSheet('background-color: #808080')
+    self.dialog13.setStyleSheet('background-color: #2E2E38')
     self.dialog13.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
 
     self.btn2 = QPushButton('Data Extract', self.dialog13)
     self.btn2.move(70, 200)
-    self.btn2.setStyleSheet('color:black;background-color:#FFE602')
+    self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png')
     self.btn2.clicked.connect(self.extButtonClicked13)
+
+    font9 = self.btn2.font()
+    font9.setBold(True)
+    self.btn2.setFont(font9)
 
     self.btnDialog = QPushButton('Close', self.dialog13)
     self.btnDialog.move(180, 200)
-    self.btnDialog.setStyleSheet('color:black;background-color:#FFE602')
+    self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png')
     self.btnDialog.clicked.connect(self.dialog_close13)
 
     labelContinuous = QLabel('연속된 자릿수* : ', self.dialog13)
