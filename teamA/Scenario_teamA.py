@@ -1,22 +1,26 @@
 ### Dialog
 def Dialog4(self):
     self.dialog4 = QDialog()
-    self.dialog4.setStyleSheet('background-color: #808080')
+    self.dialog4.setStyleSheet('background-color: #2E2E38')
     self.dialog4.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
 
-    self.btn2 = QPushButton('Data Extract', self.dialog4)
+    self.btn2 = QPushButton('Extract Data', self.dialog4)
     self.btn2.move(70, 200)
-    self.btn2.setStyleSheet('color:black;background-color:#FFE602')
+    self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png')
     self.btn2.clicked.connect(self.extButtonClicked4)
+
+    font9 = self.btn2.font()
+    font9.setBold(True)
+    self.btn2.setFont(font9)
 
     self.btnDialog = QPushButton('Close', self.dialog4)
     self.btnDialog.move(180, 200)
-    self.btnDialog.setStyleSheet('color:black;background-color:#FFE602')
+    self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png')
     self.btnDialog.clicked.connect(self.dialog_close4)
 
     label_freq = QLabel('사용빈도(N)* :', self.dialog4)
     label_freq.move(50, 80)
-    label_freq.setStyleSheet('color: white;')
+    label_freq.setStyleSheet('color: red;')
     self.D4_N = QLineEdit(self.dialog4)
     self.D4_N.setStyleSheet('background-color: white;')
     self.D4_N.move(150, 80)
@@ -31,22 +35,26 @@ def Dialog4(self):
     self.dialog4.setGeometry(300, 300, 350, 300)
 
     self.dialog4.setWindowTitle('Scenario4')
-    self.dialog4.setWindowModality(Qt.ApplicationModal)
-    self.dialog4.exec_()
+    self.dialog4.setWindowModality(Qt.NonModal)
+    self.dialog4.show_()
 
 def Dialog5(self):
     self.dialog5 = QDialog()
-    self.dialog5.setStyleSheet('background-color: #808080')
+    self.dialog5.setStyleSheet('background-color: #2E2E38')
     self.dialog5.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
 
     self.btn2 = QPushButton('Data Extract', self.dialog5)
     self.btn2.move(70, 200)
-    self.btn2.setStyleSheet('color:black;background-color:#FFE602')
+    self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png')
     self.btn2.clicked.connect(self.extButtonClicked5)
+
+    font9 = self.btn2.font()
+    font9.setBold(True)
+    self.btn2.setFont(font9)
 
     self.btnDialog = QPushButton('Close', self.dialog5)
     self.btnDialog.move(180, 200)
-    self.btnDialog.setStyleSheet('color:black;background-color:#FFE602')
+    self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png')
     self.btnDialog.clicked.connect(self.dialog_close5)
 
     label_term_start = QLabel('시작일 :', self.dialog5)
@@ -68,26 +76,31 @@ def Dialog5(self):
     self.dialog5.setGeometry(300, 300, 350, 300)
 
     self.dialog5.setWindowTitle('Scenario5')
-    self.dialog5.setWindowModality(Qt.ApplicationModal)
-    self.dialog5.exec_()
+    self.dialog5.setWindowModality(Qt.NonModal)
+    self.dialog5.show_()
 
 def Dialog13(self):
     self.dialog13 = QDialog()
-    self.dialog13.setStyleSheet('background-color: #808080')
+    self.dialog13.setStyleSheet('background-color: #2E2E38')
     self.dialog13.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
 
     self.btn2 = QPushButton('Data Extract', self.dialog13)
     self.btn2.move(70, 200)
-    self.btn2.setStyleSheet('color:black;background-color:#FFE602')
+    self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png')
+    self.btn2.clicked.connect(self.extButtonClicked13)
+
+    font9 = self.btn2.font()
+    font9.setBold(True)
+    self.btn2.setFont(font9)
 
     self.btnDialog = QPushButton('Close', self.dialog13)
     self.btnDialog.move(180, 200)
-    self.btnDialog.setStyleSheet('color:black;background-color:#FFE602')
+    self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png')
     self.btnDialog.clicked.connect(self.dialog_close13)
 
     labelContinuous = QLabel('연속된 자릿수* : ', self.dialog13)
     labelContinuous.move(40, 80)
-    labelContinuous.setStyleSheet("color: white;")
+    labelContinuous.setStyleSheet("color: red;")
     self.D13_continuous = QLineEdit(self.dialog13)
     self.D13_continuous.setStyleSheet("background-color: white;")
     self.D13_continuous.move(170, 80)
@@ -109,8 +122,8 @@ def Dialog13(self):
     self.dialog13.setGeometry(300, 300, 350, 300)
 
     self.dialog13.setWindowTitle('Scenario13')
-    self.dialog13.setWindowModality(Qt.ApplicationModal)
-    self.dialog13.exec_()
+    self.dialog13.setWindowModality(Qt.NonModal)
+    self.dialog13.show_()
 
 #### extButtonClicked
 def extButtonClicked4(self):
@@ -123,7 +136,7 @@ def extButtonClicked4(self):
     temp_TE = self.D4_TE.text()
 
     if temp_N == '':
-        self.alterbox_open()
+        self.alertbox_open()
 
     else:
         db = 'master'
@@ -159,7 +172,7 @@ def extButtonClicked5(self):
     temp_end = self.D5_term_end.text()
 
     if temp_start == '':
-        self.alterbox_open()
+        self.alertbox_open()
 
     else:
         db = 'master'
@@ -187,7 +200,7 @@ def extButtonClicked5(self):
 
 def extButtonClicked13(self):
     passwords = ''
-    users = 'guset'
+    users = 'guest'
     server = ids
     password = passwords
 
@@ -196,7 +209,7 @@ def extButtonClicked13(self):
     temp_cost_13 = self.D13_cost.text()
 
     if temp_continuous == '' or temp_account_13 == '' or temp_cost_13 == '':
-        self.alterbox_open()
+        self.alertbox_open()
 
     else:
         db = 'master'
