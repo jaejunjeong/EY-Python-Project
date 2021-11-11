@@ -6,6 +6,7 @@ from PyQt5.QtCore import *
 import pyodbc
 import pandas as pd
 
+
 class DataFrameModel(QAbstractTableModel):
     DtypeRole = Qt.UserRole + 1000
     ValueRole = Qt.UserRole + 1001
@@ -76,7 +77,7 @@ class MyApp(QWidget):
         self.init_UI()
         ##Initialize Variables
         self.selected_project_id = None
-        self.selected_server_name = "서버를 선택하세요"
+        self.selected_server_name = "--서버 목록--"
         self.dataframe = None
         self.users = None
         self.cnxn = None
@@ -85,13 +86,13 @@ class MyApp(QWidget):
 
     def init_UI(self):
 
-        img = QImage("C:/Users/BZ297TR/OneDrive - EY/Desktop//dark_gray.png")
+        img = QImage('./dark_gray.png')
         scaledImg = img.scaled(QSize(1000, 700))
         palette = QPalette()
         palette.setBrush(10, QBrush(scaledImg))
         self.setPalette(palette)
 
-        pixmap = QPixmap('C:/Users/BZ297TR/OneDrive - EY/Desktop/title.png')
+        pixmap = QPixmap('./title.png')
         lbl_img = QLabel()
         lbl_img.setPixmap(pixmap)
 
@@ -102,11 +103,12 @@ class MyApp(QWidget):
         self.splitter_layout.addWidget(self.Connect_ServerInfo_Group())
         self.splitter_layout.addWidget(self.Show_DataFrame_Group())
         self.splitter_layout.addWidget(self.Save_Buttons_Group())
+        self.splitter_layout.setHandleWidth(0)
 
         widget_layout.addWidget(self.splitter_layout)
         self.setLayout(widget_layout)
 
-        self.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
+        self.setWindowIcon(QIcon("./EY_logo.png"))
         self.setWindowTitle('Scenario')
 
         self.setGeometry(300, 300, 1000, 700)
@@ -128,7 +130,7 @@ class MyApp(QWidget):
         user = users
 
         # 예외처리 - 서버 선택
-        if server == "서버를 선택하세요":
+        if server == "--서버 목록--":
             QMessageBox.about(self, "Warning", "서버가 선택되어 있지 않습니다")
             return
 
@@ -149,29 +151,31 @@ class MyApp(QWidget):
                            From [DataAnalyticsRepository].[dbo].[Projects]
                            WHERE EngagementCode IN ({ecode})
                            AND DeletedBy IS NULL
+
                      """
 
         # 예외처리 - ecode, pname 오류
         try:
             selected_project_names = pd.read_sql(sql_query, self.cnxn)
+            if len(selected_project_names) == 0:
+                QMessageBox.about(self, "Warning", "해당 Engagement Code 내 프로젝트가 존재하지 않습니다.")
+                self.ProjectCombobox.clear()
+                self.ProjectCombobox.addItem("프로젝트가 없습니다.")
+
+            else:
+                self.ProjectCombobox.clear()
+                self.ProjectCombobox.addItem("--프로젝트 목록--")
+
+                for i in range(0, len(selected_project_names)):
+                    self.ProjectCombobox.addItem(selected_project_names.iloc[i, 0])
+
+            return
+
         except:
-            QMessageBox.about(self, "Warning", "Engagement Code가 잘못되었습니다")
+            QMessageBox.about(self, "Warning", "Engagement Code를 입력하세요.")
             self.ProjectCombobox.clear()
             self.ProjectCombobox.addItem("프로젝트가 없습니다")
             return
-
-        # 예외처리 - pname 입력 오류
-        if len(selected_project_names) == 0:
-            QMessageBox.about(self, "Warning", "프로젝트가 없습니다")
-            self.ProjectCombobox.clear()
-            self.ProjectCombobox.addItem("프로젝트가 없습니다")
-            return
-
-        self.ProjectCombobox.clear()
-        self.ProjectCombobox.addItem("--프로젝트 목록--")
-
-        for i in range(0, len(selected_project_names)):
-            self.ProjectCombobox.addItem(selected_project_names.iloc[i, 0])
 
     def onActivated(self, text):
         global ids
@@ -189,42 +193,48 @@ class MyApp(QWidget):
         global small
         small = index
 
+    def Project_ID_Selected(self, text):
+        self.selected_project_id = text
+
     def connectDialog(self):
-        if big == 0 and small == 1:
-            self.Dialog4()
-
-        elif big == 0 and small == 2:
-            self.Dialog5()
-
-        elif big == 1 and small == 1:
-            self.Dialog6()
-
-        elif big == 1 and small == 2:
-            self.Dialog7()
-
-        elif big == 1 and small == 3:
-            self.Dialog8()
-
-        elif big == 2 and small == 1:
-            self.Dialog9()
-
-        elif big == 2 and small == 2:
-            self.Dialog10()
-
-        elif big == 3 and small == 1:
-            self.Dialog11()
-
-        elif big == 3 and small == 2:
-            self.Dialog12()
-
-        elif big == 4 and small == 1:
-            self.Dialog13()
-
-        elif big == 4 and small == 2:
-            self.Dialog14()
-
+        if self.selected_project_id == '--프로젝트 목록--' or self.selected_project_id == None:
+            QMessageBox.about(self, "Warning", "프로젝트를 선택하세요.")
         else:
-            self.messagebox_open()
+            if big == 0 and small == 1:
+                self.Dialog4()
+
+            elif big == 0 and small == 2:
+                self.Dialog5()
+
+            elif big == 1 and small == 1:
+                self.Dialog6()
+
+            elif big == 1 and small == 2:
+                self.Dialog7()
+
+            elif big == 1 and small == 3:
+                self.Dialog8()
+
+            elif big == 2 and small == 1:
+                self.Dialog9()
+
+            elif big == 2 and small == 2:
+                self.Dialog10()
+
+            elif big == 3 and small == 1:
+                self.Dialog11()
+
+            elif big == 3 and small == 2:
+                self.Dialog12()
+
+            elif big == 4 and small == 1:
+                self.Dialog13()
+
+            elif big == 4 and small == 2:
+                self.Dialog14()
+
+            else:
+                QMessageBox.about(self, "Warning", "시나리오를 선택하세요.")
 
     def Connect_ServerInfo_Group(self):
         groupbox = QGroupBox('접속 정보')
@@ -257,6 +267,7 @@ class MyApp(QWidget):
         label4.setStyleSheet("color: white;")
 
         self.cb = QComboBox(self)
+        self.cb.addItem('--서버 목록--')
         self.cb.addItem('KRSEOVMPPACSQ01\INST1')
         self.cb.addItem('KRSEOVMPPACSQ02\INST1')
         self.cb.addItem('KRSEOVMPPACSQ03\INST1')
@@ -293,7 +304,7 @@ class MyApp(QWidget):
         font1 = btn1.font()
         font1.setBold(True)
         btn1.setFont(font1)
-        btn1.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        btn1.setStyleSheet('color:white;  background-image : url(./bar.png)')
 
         btn1.clicked.connect(self.connectButtonClicked)
 
@@ -306,7 +317,7 @@ class MyApp(QWidget):
         font2 = btn2.font()
         font2.setBold(True)
         btn2.setFont(font2)
-        btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
 
         btn2.clicked.connect(self.connectDialog)
 
@@ -330,11 +341,11 @@ class MyApp(QWidget):
     def Dialog4(self):
         self.dialog4 = QDialog()
         self.dialog4.setStyleSheet('background-color: #2E2E38')
-        self.dialog4.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
+        self.dialog4.setWindowIcon(QIcon('./EY_logo.png'))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog4)
         self.btn2.move(70, 200)
-        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked4)
 
         font9 = self.btn2.font()
@@ -344,12 +355,15 @@ class MyApp(QWidget):
         self.btnDialog = QPushButton('Close', self.dialog4)
         self.btnDialog.move(180, 200)
         self.btnDialog.setStyleSheet(
-            'color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+            'color:white;  background-image : url(./bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close4)
 
         font10 = self.btnDialog.font()
         font10.setBold(True)
         self.btnDialog.setFont(font10)
+
+        self.btn2.resize(110, 30)
+        self.btnDialog.resize(110, 30)
 
         label_freq = QLabel('사용빈도(N)* :', self.dialog4)
         label_freq.move(50, 80)
@@ -384,11 +398,11 @@ class MyApp(QWidget):
     def Dialog5(self):
         self.dialog5 = QDialog()
         self.dialog5.setStyleSheet('background-color: #2E2E38')
-        self.dialog5.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
+        self.dialog5.setWindowIcon(QIcon('./EY_logo.png'))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog5)
         self.btn2.move(70, 200)
-        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked5)
 
         font9 = self.btn2.font()
@@ -398,12 +412,15 @@ class MyApp(QWidget):
         self.btnDialog = QPushButton('Close', self.dialog5)
         self.btnDialog.move(180, 200)
         self.btnDialog.setStyleSheet(
-            'color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+            'color:white;  background-image : url(./bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close5)
 
         font10 = self.btnDialog.font()
         font10.setBold(True)
         self.btnDialog.setFont(font10)
+
+        self.btn2.resize(110, 30)
+        self.btnDialog.resize(110, 30)
 
         label_term_start = QLabel('시작일 :', self.dialog5)
         label_term_start.move(50, 80)
@@ -440,11 +457,11 @@ class MyApp(QWidget):
     def Dialog6(self):
         self.dialog6 = QDialog()
         self.dialog6.setStyleSheet('background-color: #2E2E38')
-        self.dialog6.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
+        self.dialog6.setWindowIcon(QIcon("./EY_logo.png"))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog6)
         self.btn2.move(70, 200)
-        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked6)
 
         font9 = self.btn2.font()
@@ -453,12 +470,15 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog6)
         self.btnDialog.move(180, 200)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close6)
 
         font10 = self.btnDialog.font()
         font10.setBold(True)
         self.btnDialog.setFont(font10)
+
+        self.btn2.resize(110, 30)
+        self.btnDialog.resize(110, 30)
 
         labelDate = QLabel('결산일* : ', self.dialog6)
         labelDate.move(50, 50)
@@ -530,11 +550,11 @@ class MyApp(QWidget):
     def Dialog7(self):
         self.dialog7 = QDialog()
         self.dialog7.setStyleSheet('background-color: #2E2E38')
-        self.dialog7.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
+        self.dialog7.setWindowIcon(QIcon("./EY_logo.png"))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog7)
         self.btn2.move(80, 200)
-        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked7)
 
         font9 = self.btn2.font()
@@ -543,12 +563,15 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog7)
         self.btnDialog.move(190, 200)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close7)
 
         font10 = self.btnDialog.font()
         font10.setBold(True)
         self.btnDialog.setFont(font10)
+
+        self.btn2.resize(110, 30)
+        self.btnDialog.resize(110, 30)
 
         self.rbtn1 = QRadioButton('Effective Date', self.dialog7)
         self.rbtn1.move(10, 50)
@@ -626,11 +649,11 @@ class MyApp(QWidget):
     def Dialog8(self):
         self.dialog8 = QDialog()
         self.dialog8.setStyleSheet('background-color: #2E2E38')
-        self.dialog8.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
+        self.dialog8.setWindowIcon(QIcon("./EY_logo.png"))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog8)
         self.btn2.move(60, 180)
-        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked8)
 
         font9 = self.btn2.font()
@@ -639,12 +662,15 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog8)
         self.btnDialog.move(170, 180)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close8)
 
         font10 = self.btnDialog.font()
         font10.setBold(True)
         self.btnDialog.setFont(font10)
+
+        self.btn2.resize(110, 30)
+        self.btnDialog.resize(110, 30)
 
         labelDate = QLabel('N일* : ', self.dialog8)
         labelDate.move(50, 50)
@@ -703,11 +729,11 @@ class MyApp(QWidget):
     def Dialog9(self):
         self.dialog9 = QDialog()
         self.dialog9.setStyleSheet('background-color: #2E2E38')
-        self.dialog9.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
+        self.dialog9.setWindowIcon(QIcon("./EY_logo.png"))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog9)
         self.btn2.move(60, 180)
-        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked9)
 
         font9 = self.btn2.font()
@@ -716,12 +742,15 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog9)
         self.btnDialog.move(170, 180)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close9)
 
         font10 = self.btnDialog.font()
         font10.setBold(True)
         self.btnDialog.setFont(font10)
+
+        self.btn2.resize(110, 30)
+        self.btnDialog.resize(110, 30)
 
         labelKeyword = QLabel('작성빈도수 : ', self.dialog9)
         labelKeyword.move(50, 50)
@@ -754,11 +783,11 @@ class MyApp(QWidget):
     def Dialog10(self):
         self.dialog10 = QDialog()
         self.dialog10.setStyleSheet('background-color: #2E2E38')
-        self.dialog10.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
+        self.dialog10.setWindowIcon(QIcon("./EY_logo.png"))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog10)
         self.btn2.move(60, 180)
-        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked10)
 
         font9 = self.btn2.font()
@@ -767,12 +796,15 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog10)
         self.btnDialog.move(170, 180)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close10)
 
         font10 = self.btnDialog.font()
         font10.setBold(True)
         self.btnDialog.setFont(font10)
+
+        self.btn2.resize(110, 30)
+        self.btnDialog.resize(110, 30)
 
         labelKeyword = QLabel('전표입력자 : ', self.dialog10)
         labelKeyword.move(50, 30)
@@ -835,11 +867,11 @@ class MyApp(QWidget):
     def Dialog13(self):
         self.dialog13 = QDialog()
         self.dialog13.setStyleSheet('background-color: #2E2E38')
-        self.dialog13.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
+        self.dialog13.setWindowIcon(QIcon('./EY_logo.png'))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog13)
         self.btn2.move(70, 200)
-        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked13)
 
         font9 = self.btn2.font()
@@ -849,12 +881,15 @@ class MyApp(QWidget):
         self.btnDialog = QPushButton('Close', self.dialog13)
         self.btnDialog.move(180, 200)
         self.btnDialog.setStyleSheet(
-            'color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+            'color:white;  background-image : url(./bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close13)
 
         font10 = self.btnDialog.font()
         font10.setBold(True)
         self.btnDialog.setFont(font10)
+
+        self.btn2.resize(110, 30)
+        self.btnDialog.resize(110, 30)
 
         labelContinuous = QLabel('연속된 자릿수* : ', self.dialog13)
         labelContinuous.move(40, 80)
@@ -901,11 +936,11 @@ class MyApp(QWidget):
     def Dialog14(self):
         self.dialog14 = QDialog()
         self.dialog14.setStyleSheet('background-color: #2E2E38')
-        self.dialog14.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
+        self.dialog14.setWindowIcon(QIcon("./EY_logo.png"))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog14)
         self.btn2.move(60, 180)
-        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked14)
 
         font9 = self.btn2.font()
@@ -914,12 +949,15 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog14)
         self.btnDialog.move(170, 180)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(./bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close14)
 
         font10 = self.btnDialog.font()
         font10.setBold(True)
         self.btnDialog.setFont(font10)
+
+        self.btn2.resize(110, 30)
+        self.btnDialog.resize(110, 30)
 
         labelKeyword = QLabel('Key Words : ', self.dialog14)
         labelKeyword.move(50, 50)
@@ -982,13 +1020,6 @@ class MyApp(QWidget):
     def dialog_close14(self):
         self.dialog14.close()
 
-    def messagebox_open(self):
-        self.msg = QMessageBox()
-        self.msg.setIcon(QMessageBox.Information)
-        self.msg.setWindowTitle('시나리오 재선택')
-        self.msg.setText('시나리오를 선택하세요.')
-        self.msg.exec_()
-
     def Show_DataFrame_Group(self):
         tables = QGroupBox('데이터')
         self.setStyleSheet('QGroupBox  {color: white;}')
@@ -1015,12 +1046,12 @@ class MyApp(QWidget):
         self.btn4 = QPushButton('Save', self)
         grid3 = QGridLayout()
 
-        self.btn3.setStyleSheet('color:white;background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btn3.setStyleSheet('color:white;background-image : url(./bar.png)')
         font1 = self.btn3.font()
         font1.setBold(True)
         self.btn3.setFont(font1)
 
-        self.btn4.setStyleSheet('color:white;background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btn4.setStyleSheet('color:white;background-image : url(./bar.png)')
         font2 = self.btn4.font()
         font2.setBold(True)
         self.btn4.setFont(font2)
@@ -1035,6 +1066,7 @@ class MyApp(QWidget):
         return groupbox3
 
     def projectselected(self, text):
+        self.Project_ID_Selected(text)
         passwords = ''
         users = 'guest'
 
@@ -1092,13 +1124,10 @@ class MyApp(QWidget):
             sql_query = """
             """.format(field=fields)
 
-        df = pd.read_sql(sql_query, cnxn)
+        self.dataframe = pd.read_sql(sql_query, self.cnxn)
 
-        model = DataFrameModel(df)
+        model = DataFrameModel(self.dataframe)
         self.viewtable.setModel(model)
-
-        global save_df
-        save_df = df
 
     def extButtonClicked5(self):
         passwords = ''
@@ -1126,13 +1155,10 @@ class MyApp(QWidget):
 
             sql_query = """""".format(field=fields)
 
-        df = pd.read_sql(sql_query, cnxn)
+        self.dataframe = pd.read_sql(sql_query, self.cnxn)
 
-        model = DataFrameModel(df)
+        model = DataFrameModel(self.dataframe)
         self.viewtable.setModel(model)
-
-        global save_df
-        save_df = df
 
     def extButtonClicked6(self):
         passwords = ''
@@ -1185,13 +1211,10 @@ class MyApp(QWidget):
                     ORDER BY JENumber, JELineNumber											
                 '''.format(field=fields)
 
-            df = pd.read_sql(sql, cnxn)
+            self.dataframe = pd.read_sql(sql, self.cnxn)
 
-            model = DataFrameModel(df)
+            model = DataFrameModel(self.dataframe)
             self.viewtable.setModel(model)
-
-            global save_df
-            save_df = df
 
     def extButtonClicked7(self):
         passwords = ''
@@ -1249,13 +1272,10 @@ class MyApp(QWidget):
                    ORDER BY JENumber, JELineNumber											
                 '''.format(field=fields)
 
-            df = pd.read_sql(sql, cnxn)
+            self.dataframe = pd.read_sql(sql, self.cnxn)
 
-            model = DataFrameModel(df)
+            model = DataFrameModel(self.dataframe)
             self.viewtable.setModel(model)
-
-            global save_df
-            save_df = df
 
     def extButtonClicked8(self):
         passwords = ''
@@ -1307,13 +1327,10 @@ class MyApp(QWidget):
                    ORDER BY JENumber, JELineNumber											
                 '''.format(field=fields)
 
-            df = pd.read_sql(sql, cnxn)
+            self.dataframe = pd.read_sql(sql, self.cnxn)
 
-            model = DataFrameModel(df)
+            model = DataFrameModel(self.dataframe)
             self.viewtable.setModel(model)
-
-            global save_df
-            save_df = df
 
     def extButtonClicked9(self):
         passwords = ''
@@ -1363,13 +1380,10 @@ class MyApp(QWidget):
                    ORDER BY JENumber, JELineNumber											
                 '''.format(field=fields)
 
-            df = pd.read_sql(sql, cnxn)
+            self.dataframe = pd.read_sql(sql, self.cnxn)
 
-            model = DataFrameModel(df)
+            model = DataFrameModel(self.dataframe)
             self.viewtable.setModel(model)
-
-            global save_df
-            save_df = df
 
     def extButtonClicked10(self):
         passwords = ''
@@ -1421,13 +1435,10 @@ class MyApp(QWidget):
                    ORDER BY JENumber, JELineNumber											
                 '''.format(field=fields)
 
-            df = pd.read_sql(sql, cnxn)
+            self.dataframe = pd.read_sql(sql, self.cnxn)
 
-            model = DataFrameModel(df)
+            model = DataFrameModel(self.dataframe)
             self.viewtable.setModel(model)
-
-            global save_df
-            save_df = df
 
     def extButtonClicked13(self):
         passwords = ''
@@ -1458,12 +1469,9 @@ class MyApp(QWidget):
             sql_query = '''
             '''.format(field=fields)
 
-        df = pd.read_sql(sql_query, cnxn)
-        model = DataFrameModel(df)
+        self.dataframe = pd.read_sql(sql_query, self.cnxn)
+        model = DataFrameModel(self.dataframe)
         self.viewtable.setModel(model)
-
-        global save_df
-        save_df = df
 
     def extButtonClicked14(self):
         passwords = ''
@@ -1513,13 +1521,10 @@ class MyApp(QWidget):
                    ORDER BY JENumber, JELineNumber											
                 '''.format(field=fields)
 
-            df = pd.read_sql(sql, cnxn)
+            self.dataframe = pd.read_sql(sql, self.cnxn)
 
-            model = DataFrameModel(df)
+            model = DataFrameModel(self.dataframe)
             self.viewtable.setModel(model)
-
-            global save_df
-            save_df = df
 
     @pyqtSlot(QModelIndex)
     def slot_clicked_item(self, QModelIndex):
@@ -1535,12 +1540,13 @@ class MyApp(QWidget):
             saveRoute = fileName + ".csv"
 
     def saveFile(self):
-        if save_df is None:
+        if self.dataframe is None:
             QMessageBox.about(self, "Warning", "저장할 데이터가 없습니다")
             return
 
         else:
-            save_df.to_csv(saveRoute, index=False, encoding='utf-8-sig')
+            self.dataframe.to_csv(saveRoute, index=False, encoding='utf-8-sig')
+            QMessageBox.about(self, "Warning", "데이터를 저장했습니다.")
 
 
 if __name__ == '__main__':
