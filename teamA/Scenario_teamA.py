@@ -31,8 +31,8 @@ def Dialog4(self):
     self.dialog4.setGeometry(300, 300, 350, 300)
 
     self.dialog4.setWindowTitle('Scenario4')
-    self.dialog4.setWindowModality(Qt.ApplicationModal)
-    self.dialog4.exec_()
+    self.dialog4.setWindowModality(Qt.NonModal)
+    self.dialog4.show_()
 
 def Dialog5(self):
     self.dialog5 = QDialog()
@@ -68,8 +68,8 @@ def Dialog5(self):
     self.dialog5.setGeometry(300, 300, 350, 300)
 
     self.dialog5.setWindowTitle('Scenario5')
-    self.dialog5.setWindowModality(Qt.ApplicationModal)
-    self.dialog5.exec_()
+    self.dialog5.setWindowModality(Qt.NonModal)
+    self.dialog5.show_()
 
 def Dialog13(self):
     self.dialog13 = QDialog()
@@ -109,8 +109,8 @@ def Dialog13(self):
     self.dialog13.setGeometry(300, 300, 350, 300)
 
     self.dialog13.setWindowTitle('Scenario13')
-    self.dialog13.setWindowModality(Qt.ApplicationModal)
-    self.dialog13.exec_()
+    self.dialog13.setWindowModality(Qt.NonModal)
+    self.dialog13.show_()
 
 #### extButtonClicked
 def extButtonClicked4(self):
