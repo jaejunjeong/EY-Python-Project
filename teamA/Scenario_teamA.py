@@ -30,7 +30,7 @@ def Dialog4(self):
     font1.setBold(True)
     label_freq.setFont(font1)
 
-    self.D4_N = QLineEdit(self.dialog4)
+    self.D4_N = QLineEdit(self.dialog4) 
     self.D4_N.setStyleSheet('background-color: white;')
     self.D4_N.move(150, 80)
 
