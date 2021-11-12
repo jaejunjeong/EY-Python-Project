@@ -86,13 +86,13 @@ class MyApp(QWidget):
 
     def init_UI(self):
 
-        img = QImage('./dark_gray.png')
+        img = QImage('C:/Users/BZ297TR/OneDrive - EY/Desktop/dark_gray.png')
         scaledImg = img.scaled(QSize(1000, 700))
         palette = QPalette()
         palette.setBrush(10, QBrush(scaledImg))
         self.setPalette(palette)
 
-        pixmap = QPixmap('./title.png')
+        pixmap = QPixmap('C:/Users/BZ297TR/OneDrive - EY/Desktop/title.png')
         lbl_img = QLabel()
         lbl_img.setPixmap(pixmap)
 
@@ -108,7 +108,7 @@ class MyApp(QWidget):
         widget_layout.addWidget(self.splitter_layout)
         self.setLayout(widget_layout)
 
-        self.setWindowIcon(QIcon("./EY_logo.png"))
+        self.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
         self.setWindowTitle('Scenario')
 
         self.setGeometry(300, 300, 1000, 700)
@@ -304,7 +304,7 @@ class MyApp(QWidget):
         font1 = btn1.font()
         font1.setBold(True)
         btn1.setFont(font1)
-        btn1.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        btn1.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
 
         btn1.clicked.connect(self.connectButtonClicked)
 
@@ -317,7 +317,7 @@ class MyApp(QWidget):
         font2 = btn2.font()
         font2.setBold(True)
         btn2.setFont(font2)
-        btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
 
         btn2.clicked.connect(self.connectDialog)
 
@@ -341,11 +341,11 @@ class MyApp(QWidget):
     def Dialog4(self):
         self.dialog4 = QDialog()
         self.dialog4.setStyleSheet('background-color: #2E2E38')
-        self.dialog4.setWindowIcon(QIcon('./EY_logo.png'))
+        self.dialog4.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog4)
         self.btn2.move(70, 200)
-        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked4)
 
         font9 = self.btn2.font()
@@ -354,8 +354,7 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton('Close', self.dialog4)
         self.btnDialog.move(180, 200)
-        self.btnDialog.setStyleSheet(
-            'color:white;  background-image : url(./bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close4)
 
         font10 = self.btnDialog.font()
@@ -397,22 +396,24 @@ class MyApp(QWidget):
 
     def Dialog5(self):
         self.dialog5 = QDialog()
+        self.dialog5.resize(200, 200)
         self.dialog5.setStyleSheet('background-color: #2E2E38')
-        self.dialog5.setWindowIcon(QIcon('./EY_logo.png'))
+        self.dialog5.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
 
+        ### Extract Data
         self.btn2 = QPushButton(' Extract Data', self.dialog5)
-        self.btn2.move(70, 200)
-        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btn2.move(90, 330)
+        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked5)
 
         font9 = self.btn2.font()
         font9.setBold(True)
         self.btn2.setFont(font9)
 
+        ### Close
         self.btnDialog = QPushButton('Close', self.dialog5)
-        self.btnDialog.move(180, 200)
-        self.btnDialog.setStyleSheet(
-            'color:white;  background-image : url(./bar.png)')
+        self.btnDialog.move(250, 330)
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close5)
 
         font10 = self.btnDialog.font()
@@ -422,33 +423,34 @@ class MyApp(QWidget):
         self.btn2.resize(110, 30)
         self.btnDialog.resize(110, 30)
 
-        label_term_start = QLabel('시작일 :', self.dialog5)
-        label_term_start.move(50, 80)
-        label_term_start.setStyleSheet('color: white;')
+        ### 라벨1 - 계정코드 입력
+        label_AccCode = QLabel('Enter your Account Code: ', self.dialog5)
+        label_AccCode.move(20, 40)
+        label_AccCode.setStyleSheet('color: white;')
+        label_AccCode.setFont(QFont('Arial', 12))
 
-        font1 = label_term_start.font()
+        font1 = label_AccCode.font()
         font1.setBold(True)
-        label_term_start.setFont(font1)
+        label_AccCode.setFont(font1)
 
-        self.D5_term_start = QLineEdit(self.dialog5)
-        self.D5_term_start.setInputMask('0000-00-00;*')
-        self.D5_term_start.setStyleSheet('background-color: white;')
-        self.D5_term_start.move(150, 80)
+        ### 라벨 2 - 입력 예시
+        label_Example = QLabel('※ 입력 예시: OO', self.dialog5)
+        label_Example.move(40, 70)
+        label_Example.setStyleSheet('color: red;')
+        label_Example.setFont(QFont('Times font', 9))
 
-        label_term_end = QLabel('종료일 :', self.dialog5)
-        label_term_end.move(50, 110)
-        label_term_end.setStyleSheet('color: white;')
+        font2 = label_Example.font()
+        font2.setBold(False)
+        label_Example.setFont(font2)
 
-        font2 = label_term_end.font()
-        font2.setBold(True)
-        label_term_end.setFont(font2)
+        ### TextEdit - 계정코드 Paste
+        self.MyInput = QTextEdit(self.dialog5)
+        self.MyInput.setAcceptRichText(False)
+        self.MyInput.resize(350, 200)
+        self.MyInput.move(50, 110)
+        self.MyInput.setStyleSheet('color: white;')
 
-        self.D5_term_end = QLineEdit(self.dialog5)
-        self.D5_term_end.setInputMask('0000-00-00;*')
-        self.D5_term_end.setStyleSheet('background-color: white;')
-        self.D5_term_end.move(150, 110)
-
-        self.dialog5.setGeometry(300, 300, 350, 300)
+        self.dialog5.setGeometry(400, 400, 465, 400)
 
         self.dialog5.setWindowTitle('Scenario5')
         self.dialog5.setWindowModality(Qt.NonModal)
@@ -457,11 +459,11 @@ class MyApp(QWidget):
     def Dialog6(self):
         self.dialog6 = QDialog()
         self.dialog6.setStyleSheet('background-color: #2E2E38')
-        self.dialog6.setWindowIcon(QIcon("./EY_logo.png"))
+        self.dialog6.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog6)
         self.btn2.move(70, 200)
-        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked6)
 
         font9 = self.btn2.font()
@@ -470,7 +472,7 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog6)
         self.btnDialog.move(180, 200)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close6)
 
         font10 = self.btnDialog.font()
@@ -550,11 +552,11 @@ class MyApp(QWidget):
     def Dialog7(self):
         self.dialog7 = QDialog()
         self.dialog7.setStyleSheet('background-color: #2E2E38')
-        self.dialog7.setWindowIcon(QIcon("./EY_logo.png"))
+        self.dialog7.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog7)
         self.btn2.move(80, 200)
-        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked7)
 
         font9 = self.btn2.font()
@@ -563,7 +565,7 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog7)
         self.btnDialog.move(190, 200)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close7)
 
         font10 = self.btnDialog.font()
@@ -649,11 +651,11 @@ class MyApp(QWidget):
     def Dialog8(self):
         self.dialog8 = QDialog()
         self.dialog8.setStyleSheet('background-color: #2E2E38')
-        self.dialog8.setWindowIcon(QIcon("./EY_logo.png"))
+        self.dialog8.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog8)
         self.btn2.move(60, 180)
-        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked8)
 
         font9 = self.btn2.font()
@@ -662,7 +664,7 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog8)
         self.btnDialog.move(170, 180)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close8)
 
         font10 = self.btnDialog.font()
@@ -729,11 +731,11 @@ class MyApp(QWidget):
     def Dialog9(self):
         self.dialog9 = QDialog()
         self.dialog9.setStyleSheet('background-color: #2E2E38')
-        self.dialog9.setWindowIcon(QIcon("./EY_logo.png"))
+        self.dialog9.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog9)
         self.btn2.move(60, 180)
-        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked9)
 
         font9 = self.btn2.font()
@@ -742,7 +744,7 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog9)
         self.btnDialog.move(170, 180)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close9)
 
         font10 = self.btnDialog.font()
@@ -783,11 +785,11 @@ class MyApp(QWidget):
     def Dialog10(self):
         self.dialog10 = QDialog()
         self.dialog10.setStyleSheet('background-color: #2E2E38')
-        self.dialog10.setWindowIcon(QIcon("./EY_logo.png"))
+        self.dialog10.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog10)
         self.btn2.move(60, 180)
-        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked10)
 
         font9 = self.btn2.font()
@@ -796,7 +798,7 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog10)
         self.btnDialog.move(170, 180)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close10)
 
         font10 = self.btnDialog.font()
@@ -867,11 +869,11 @@ class MyApp(QWidget):
     def Dialog13(self):
         self.dialog13 = QDialog()
         self.dialog13.setStyleSheet('background-color: #2E2E38')
-        self.dialog13.setWindowIcon(QIcon('./EY_logo.png'))
+        self.dialog13.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog13)
         self.btn2.move(70, 200)
-        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked13)
 
         font9 = self.btn2.font()
@@ -881,7 +883,7 @@ class MyApp(QWidget):
         self.btnDialog = QPushButton('Close', self.dialog13)
         self.btnDialog.move(180, 200)
         self.btnDialog.setStyleSheet(
-            'color:white;  background-image : url(./bar.png)')
+            'color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close13)
 
         font10 = self.btnDialog.font()
@@ -936,11 +938,11 @@ class MyApp(QWidget):
     def Dialog14(self):
         self.dialog14 = QDialog()
         self.dialog14.setStyleSheet('background-color: #2E2E38')
-        self.dialog14.setWindowIcon(QIcon("./EY_logo.png"))
+        self.dialog14.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
 
         self.btn2 = QPushButton(' Extract Data', self.dialog14)
         self.btn2.move(60, 180)
-        self.btn2.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked14)
 
         font9 = self.btn2.font()
@@ -949,7 +951,7 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog14)
         self.btnDialog.move(170, 180)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(./bar.png)')
+        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close14)
 
         font10 = self.btnDialog.font()
@@ -1046,12 +1048,12 @@ class MyApp(QWidget):
         self.btn4 = QPushButton('Save', self)
         grid3 = QGridLayout()
 
-        self.btn3.setStyleSheet('color:white;background-image : url(./bar.png)')
+        self.btn3.setStyleSheet('color:white;background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         font1 = self.btn3.font()
         font1.setBold(True)
         self.btn3.setFont(font1)
 
-        self.btn4.setStyleSheet('color:white;background-image : url(./bar.png)')
+        self.btn4.setStyleSheet('color:white;background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         font2 = self.btn4.font()
         font2.setBold(True)
         self.btn4.setFont(font2)
