@@ -95,6 +95,7 @@ class MyApp(QWidget):
         pixmap = QPixmap('C:/Users/BZ297TR/OneDrive - EY/Desktop/title.png')
         lbl_img = QLabel()
         lbl_img.setPixmap(pixmap)
+        lbl_img.setStyleSheet("background-color:#000000")
 
         widget_layout = QBoxLayout(QBoxLayout.TopToBottom)
         self.splitter_layout = QSplitter(Qt.Vertical)
@@ -1061,10 +1062,17 @@ class MyApp(QWidget):
         font7 = groupbox3.font()
         font7.setBold(True)
         groupbox3.setFont(font7)
-
+        
+        layout1 = QVBoxLayout()
+        layout2 = QHBoxLayout()
+        layout3 = QHBoxLayout()
+        layout4 = QHBoxLayout()
+        
         self.btn3 = QPushButton('Setting Save Route', self)
         self.btn4 = QPushButton('Save', self)
-        grid3 = QGridLayout()
+        self.btn3.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.btn4.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+     
 
         self.btn3.setStyleSheet('color:white;background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         font1 = self.btn3.font()
@@ -1075,13 +1083,34 @@ class MyApp(QWidget):
         font2 = self.btn4.font()
         font2.setBold(True)
         self.btn4.setFont(font2)
+        
+        label_savepath = QLabel("Save Route: ")
+        font_savepath = label_savepath.font()
+        font_savepath.setBold(True)
+        label_savepath.setFont(font_savepath)
+        label_savepath.setStyleSheet('color:white;')
 
-        grid3.addWidget(self.btn3, 0, 0)
-        grid3.addWidget(self.btn4, 0, 1)
+        self.line_savepath = QLineEdit(self)
+        self.line_savepath.setText("")
+        self.line_savepath.setDisabled(True)
+
+       
         self.btn3.clicked.connect(self.saveFileDialog)
         self.btn4.clicked.connect(self.saveFile)
 
-        groupbox3.setLayout(grid3)
+        layout2.addWidget(label_savepath)
+        layout2.addWidget(self.line_savepath)
+
+        layout4.addWidget(self.btn3, stretch=1)
+        layout4.addWidget(self.btn4, stretch=1)
+
+        layout3.addStretch(2)
+        layout3.addLayout(layout4, stretch=1)
+
+        layout1.addLayout(layout2)
+        layout1.addLayout(layout3)
+
+        groupbox3.setLayout(layout1)
 
         return groupbox3
 
@@ -1558,6 +1587,7 @@ class MyApp(QWidget):
         if fileName:
             global saveRoute
             saveRoute = fileName + ".csv"
+            self.line_savepath.setText(saveRoute)
 
     def saveFile(self):
         if self.dataframe is None:
