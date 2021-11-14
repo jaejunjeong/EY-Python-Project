@@ -1602,7 +1602,7 @@ class MyApp(QWidget):
             self.dataframe.to_csv(saveRoute, index=False, encoding='utf-8-sig')
             QMessageBox.about(self, "Warning", "데이터를 저장했습니다.")
 
-
+ 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MyApp()
