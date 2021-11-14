@@ -152,7 +152,6 @@ class MyApp(QWidget):
                            From [DataAnalyticsRepository].[dbo].[Projects]
                            WHERE EngagementCode IN ({ecode})
                            AND DeletedBy IS NULL
-
                      """
 
         # 예외처리 - ecode, pname 오류
@@ -355,7 +354,8 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton('Close', self.dialog4)
         self.btnDialog.move(180, 200)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet(
+            'color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close4)
 
         font10 = self.btnDialog.font()
@@ -414,7 +414,8 @@ class MyApp(QWidget):
         ### Close
         self.btnDialog = QPushButton('Close', self.dialog5)
         self.btnDialog.move(250, 330)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet(
+            'color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close5)
 
         font10 = self.btnDialog.font()
@@ -445,11 +446,12 @@ class MyApp(QWidget):
         label_Example.setFont(font2)
 
         ### TextEdit - 계정코드 Paste
-        self.MyInput = QTextEdit(self.dialog5)
-        self.MyInput.setAcceptRichText(False)
-        self.MyInput.resize(350, 200)
-        self.MyInput.move(50, 110)
-        self.MyInput.setStyleSheet('color: white;')
+        self.D5_Code = QTextEdit(self.dialog5)
+        self.D5_Code.setAcceptRichText(False)
+        self.D5_Code.resize(350, 200)
+        self.D5_Code.move(60, 110)
+        self.D5_Code.setStyleSheet('color: black;')
+        self.D5_Code.setStyleSheet('background-color: white;')
 
         self.dialog5.setGeometry(400, 400, 465, 400)
 
@@ -473,7 +475,8 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog6)
         self.btnDialog.move(180, 200)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet(
+            'color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close6)
 
         font10 = self.btnDialog.font()
@@ -566,7 +569,8 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog7)
         self.btnDialog.move(190, 200)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet(
+            'color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close7)
 
         font10 = self.btnDialog.font()
@@ -665,7 +669,8 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog8)
         self.btnDialog.move(170, 180)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet(
+            'color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close8)
 
         font10 = self.btnDialog.font()
@@ -817,7 +822,8 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog10)
         self.btnDialog.move(170, 180)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet(
+            'color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close10)
 
         font10 = self.btnDialog.font()
@@ -970,7 +976,8 @@ class MyApp(QWidget):
 
         self.btnDialog = QPushButton(" Close", self.dialog14)
         self.btnDialog.move(170, 180)
-        self.btnDialog.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
+        self.btnDialog.setStyleSheet(
+            'color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close14)
 
         font10 = self.btnDialog.font()
@@ -1062,17 +1069,16 @@ class MyApp(QWidget):
         font7 = groupbox3.font()
         font7.setBold(True)
         groupbox3.setFont(font7)
-        
+
         layout1 = QVBoxLayout()
         layout2 = QHBoxLayout()
         layout3 = QHBoxLayout()
         layout4 = QHBoxLayout()
-        
+
         self.btn3 = QPushButton('Setting Save Route', self)
         self.btn4 = QPushButton('Save', self)
         self.btn3.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.btn4.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-     
 
         self.btn3.setStyleSheet('color:white;background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         font1 = self.btn3.font()
@@ -1083,7 +1089,7 @@ class MyApp(QWidget):
         font2 = self.btn4.font()
         font2.setBold(True)
         self.btn4.setFont(font2)
-        
+
         label_savepath = QLabel("Save Route: ")
         font_savepath = label_savepath.font()
         font_savepath.setBold(True)
@@ -1094,7 +1100,6 @@ class MyApp(QWidget):
         self.line_savepath.setText("")
         self.line_savepath.setDisabled(True)
 
-       
         self.btn3.clicked.connect(self.saveFileDialog)
         self.btn4.clicked.connect(self.saveFile)
 
@@ -1184,10 +1189,9 @@ class MyApp(QWidget):
         server = ids
         password = passwords
 
-        temp_start = self.D5_term_start.text()
-        temp_end = self.D5_term_end.text()
+        temp_Code = self.D5_Code.text()
 
-        if temp_start == '':
+        if temp_Code == '':
             self.alertbox_open()
 
         else:

@@ -385,11 +385,13 @@ class MyApp(QWidget):
 
     def Dialog5(self):
         self.dialog5 = QDialog()
+        self.dialog5.resize(200, 200)
         self.dialog5.setStyleSheet('background-color: #2E2E38')
         self.dialog5.setWindowIcon(QIcon('C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png'))
 
+        ### Extract Data
         self.btn2 = QPushButton(' Extract Data', self.dialog5)
-        self.btn2.move(70, 200)
+        self.btn2.move(90, 330)
         self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btn2.clicked.connect(self.extButtonClicked5)
 
@@ -397,8 +399,9 @@ class MyApp(QWidget):
         font9.setBold(True)
         self.btn2.setFont(font9)
 
+        ### Close
         self.btnDialog = QPushButton('Close', self.dialog5)
-        self.btnDialog.move(180, 200)
+        self.btnDialog.move(250, 330)
         self.btnDialog.setStyleSheet(
             'color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
         self.btnDialog.clicked.connect(self.dialog_close5)
@@ -407,33 +410,38 @@ class MyApp(QWidget):
         font10.setBold(True)
         self.btnDialog.setFont(font10)
 
-        label_term_start = QLabel('시작일 :', self.dialog5)
-        label_term_start.move(50, 80)
-        label_term_start.setStyleSheet('color: white;')
+        self.btn2.resize(110, 30)
+        self.btnDialog.resize(110, 30)
 
-        font1 = label_term_start.font()
+        ### 라벨1 - 계정코드 입력
+        label_AccCode = QLabel('Enter your Account Code: ', self.dialog5)
+        label_AccCode.move(20, 40)
+        label_AccCode.setStyleSheet('color: white;')
+        label_AccCode.setFont(QFont('Arial', 12))
+
+        font1 = label_AccCode.font()
         font1.setBold(True)
-        label_term_start.setFont(font1)
+        label_AccCode.setFont(font1)
 
-        self.D5_term_start = QLineEdit(self.dialog5)
-        self.D5_term_start.setInputMask('0000-00-00;*')
-        self.D5_term_start.setStyleSheet('background-color: white;')
-        self.D5_term_start.move(150, 80)
+        ### 라벨 2 - 입력 예시
+        label_Example = QLabel('※ 입력 예시: OO', self.dialog5)
+        label_Example.move(40, 70)
+        label_Example.setStyleSheet('color: red;')
+        label_Example.setFont(QFont('Times font', 9))
 
-        label_term_end = QLabel('종료일 :', self.dialog5)
-        label_term_end.move(50, 110)
-        label_term_end.setStyleSheet('color: white;')
+        font2 = label_Example.font()
+        font2.setBold(False)
+        label_Example.setFont(font2)
 
-        font2 = label_term_end.font()
-        font2.setBold(True)
-        label_term_end.setFont(font2)
+        ### TextEdit - 계정코드 Paste
+        self.D5_Code = QTextEdit(self.dialog5)
+        self.D5_Code.setAcceptRichText(False)
+        self.D5_Code.resize(350, 200)
+        self.D5_Code.move(60, 110)
+        self.D5_Code.setStyleSheet('color: black;')
+        self.D5_Code.setStyleSheet('background-color: white;')
 
-        self.D5_term_end = QLineEdit(self.dialog5)
-        self.D5_term_end.setInputMask('0000-00-00;*')
-        self.D5_term_end.setStyleSheet('background-color: white;')
-        self.D5_term_end.move(150, 110)
-
-        self.dialog5.setGeometry(300, 300, 350, 300)
+        self.dialog5.setGeometry(400, 400, 465, 400)
 
         self.dialog5.setWindowTitle('Scenario5')
         self.dialog5.setWindowModality(Qt.NonModal)
@@ -444,6 +452,7 @@ class MyApp(QWidget):
         self.dialog6.setStyleSheet('background-color: #2E2E38')
         self.dialog6.setWindowIcon(QIcon("C:/Users/BZ297TR/OneDrive - EY/Desktop/EY_logo.png"))
 
+        ### Extract Data
         self.btn2 = QPushButton(' Extract Data', self.dialog6)
         self.btn2.move(70, 200)
         self.btn2.setStyleSheet('color:white;  background-image : url(C:/Users/BZ297TR/OneDrive - EY/Desktop/bar.png)')
@@ -1110,10 +1119,9 @@ class MyApp(QWidget):
         server = ids
         password = passwords
 
-        temp_start = self.D5_term_start.text()
-        temp_end = self.D5_term_end.text()
+        temp_Code = self.D5_Code.text()
 
-        if temp_start == '':
+        if temp_Code == '':
             self.alertbox_open()
 
         else:
@@ -1130,13 +1138,10 @@ class MyApp(QWidget):
 
             sql_query = """""".format(field=fields)
 
-        df = pd.read_sql(sql_query, cnxn)
+        self.dataframe = pd.read_sql(sql_query, self.cnxn)
 
-        model = DataFrameModel(df)
+        model = DataFrameModel(self.dataframe)
         self.viewtable.setModel(model)
-
-        global save_df
-        save_df = df
 
     def extButtonClicked6(self):
         passwords = ''
