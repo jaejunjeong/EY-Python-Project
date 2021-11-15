@@ -1,10 +1,10 @@
 import sys
-
+import re
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import pyodbc
-import pandas as pd 
+import pandas as pd
 
 
 class DataFrameModel(QAbstractTableModel):
@@ -1190,6 +1190,8 @@ class MyApp(QWidget):
         password = passwords
 
         temp_Code = self.D5_Code.text()
+        temp_Code = re.sub(r"[:,|\s]", ",", temp_Code)
+        temp_Code = re.split(",", temp_Code)
 
         if temp_Code == '':
             self.alertbox_open()
@@ -1602,7 +1604,7 @@ class MyApp(QWidget):
             self.dataframe.to_csv(saveRoute, index=False, encoding='utf-8-sig')
             QMessageBox.about(self, "Warning", "데이터를 저장했습니다.")
 
- 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MyApp()
